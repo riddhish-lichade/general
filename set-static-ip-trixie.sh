@@ -23,8 +23,7 @@ if ! [[ "$IP" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
 fi
 
 # Get the active connection name (wired)
-CON_NAME="Wired connection 1"
-#$(nmcli -t -f NAME,TYPE con show --active | grep ethernet | head -1 | cut -d: -f1)
+CON_NAME=#$(nmcli -t -f NAME,TYPE con show --active | grep ethernet | head -1 | cut -d: -f1)
 
 if [ -z "$CON_NAME" ]; then
     echo "Error: No active ethernet connection found."
@@ -32,6 +31,7 @@ if [ -z "$CON_NAME" ]; then
 fi
 
 echo "Configuring static IP on connection: $CON_NAME"
+echo "  Connection : $CON_NAME"
 echo "  IP Address : ${IP}/${CIDR}"
 echo "  Gateway    : ${GATEWAY}"
 echo "  DNS        : ${DNS}"
