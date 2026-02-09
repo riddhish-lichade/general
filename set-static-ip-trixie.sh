@@ -35,12 +35,11 @@ echo "  IP Address : ${IP}/${CIDR}"
 echo "  Gateway    : ${GATEWAY}"
 echo "  DNS        : ${DNS}"
 
-nmcli con mod "$CON_NAME" ipv4.addresses "${IP}/${CIDR}"
+nmcli c mod "$CON_NAME" ipv4.addresses "${IP}/${CIDR}" ipv4.method manual
 nmcli con mod "$CON_NAME" ipv4.gateway "$GATEWAY"
 nmcli con mod "$CON_NAME" ipv4.dns "$DNS"
-nmcli con mod "$CON_NAME" ipv4.method manual
+nmcli c down "$CON_NAME" && nmcli c up "$CON_NAME"
 
 echo "Reactivating connection..."
-nmcli con up "$CON_NAME"
 
 echo "Done. Static IP ${IP} configured."
